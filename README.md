@@ -1,2 +1,2 @@
-Here is a traditional seabattle game!
+Here is a traditional battleship game!
 Have fun!
