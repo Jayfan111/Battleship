@@ -1,11 +1,10 @@
 import core.*;
 
-import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Game {
+public class SinglePlayerMode{
     static boolean gameOver(List<Boat> boats){
         for(Boat b : boats){
             if(!b.isSunk()) return false;
