@@ -5,11 +5,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SinglePlayerMode{
-    static boolean gameOver(List<Boat> boats){
+     static boolean gameOver(List<Boat> boats){
         for(Boat b : boats){
             if(!b.isSunk()) return false;
         }
         return true;
+    }
+    static boolean isOverlap(List<Point> newBoat,List<Boat> existingBoats){
+         for(Boat b: existingBoats){
+             for(Point p: newBoat) {
+                 if (b.getLocation().contains(p)) return true;
+             }
+         }
+         return false;
     }
     static void main() {
         System.out.println("""
@@ -21,8 +29,9 @@ public class SinglePlayerMode{
         int shots = 0;
         Grid grid = new Grid();
         List<Boat> boats = new ArrayList<>();
-        for (int i = 0; i < 3; i++){
-            boats.add(new Boat(grid.randomSet()));
+        while(boats.size() < 3){
+            List<Point> newBoat = grid.randomSet();
+            if(!isOverlap(newBoat,boats)) boats.add(new Boat(newBoat));
         }
         grid.setBoats(boats);
         while(!gameOver(grid.getBoats()) && shots <= 20) {
@@ -52,13 +61,22 @@ public class SinglePlayerMode{
                         System.out.println("Hit!");
                     }
                     else{
-                        System.out.println("Miss!");
+                        System.out.println("Already Hit!");
                     }
                     over = true;
                     break;
                 }
             }
             if(!over) System.out.println("Miss!");
+        }
+        if(gameOver(grid.getBoats())){
+            System.out.println("""
+                        Congratulations! You sank all 3 enemy ships!
+                        Total shots used : """ + shots);
+        }
+        if(!gameOver(grid.getBoats()) && shots > 20){
+            System.out.println("Game Over! You ran out of ammo.\n\t" +
+                    grid.getRemainingships(grid.getBoats()) +" ships remaining.");
         }
     }
 }
