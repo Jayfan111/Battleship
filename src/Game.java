@@ -30,7 +30,15 @@ public class Game {
             boolean over = false;
             System.out.println("Enter target coordinate");
             Scanner sc = new Scanner(System.in);
+            if(!sc.hasNextInt()){
+                System.out.println("Please enter two valid integers.");
+                continue;
+            }
             int x = sc.nextInt();
+            if(!sc.hasNextInt()){
+                System.out.println("Please enter two valid integers.");
+                continue;
+            }
             int y = sc.nextInt();
             if(x < 0 || x > 6 || y < 0 || y > 6){
                 System.out.println("Out of range (0-6). Enter again.");
