@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Point {
     private int x;
@@ -10,22 +11,16 @@ public class Point {
         this.x = x;
         this.y = y;
     }
-    public static List<Point> randomSet(){
-        int XorY = (int)(Math.random() * 2);
-        int x = 3+(int)(Math.random() * 4);
-        int y = 3+(int)(Math.random() * 4);
-        List<Point> res = new ArrayList<>();
-        if(XorY == 0){
-            for(int i = 0; i < 3; i++){
-                res.add(new Point(x,y++));
-            }
-        }
-        if(XorY == 1){
-            for(int i = 0; i < 3; i++){
-                res.add(new Point(x++,y));
-            }
-        }
-        return res;
+    @Override
+    public int hashCode(){
+        return Objects.hash(x,y);
+    }
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if(!(obj instanceof Point)) return false;
+        Point other = (Point) obj;
+        return this.x == other.x && this.y == other.y;
     }
 
     public int getX() {
